@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>SSE Frontend Architecture</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/event-source-polyfill/0.0.9/eventsource.js"></script>
+    </head>
+    <body>
+        <h1>SSE Frontend</h1>
+        <div id="container"></div>
+        <script>
+            const src = new EventSource("http://localhost:3000/sse", /* { withCredentials: true } */);
+            src.addEventListener("add", function(e) {
+                console.log('[TYPE] event type', e.type);
+                console.log('[DATA] event data', e.data);
+                const node = document.createElement('p');
+                node.innerText = e.data;
+                document.getElementById('container').appendChild(node);  
+            });
+        </script>
+    </body>
+</html>
